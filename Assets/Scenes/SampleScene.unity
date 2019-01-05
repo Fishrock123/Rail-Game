@@ -279,7 +279,7 @@ PrefabInstance:
     - target: {fileID: 2984890307787062483, guid: 393188c6d83214179a77b691d3ff53e5,
         type: 3}
       propertyPath: Length
-      value: 7.2750297
+      value: 2.375704
       objectReference: {fileID: 0}
     - target: {fileID: 2984890307787062483, guid: 393188c6d83214179a77b691d3ff53e5,
         type: 3}
@@ -490,6 +490,16 @@ PrefabInstance:
         type: 3}
       propertyPath: PointB.y
       value: 1.0450239
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984890307787062483, guid: 393188c6d83214179a77b691d3ff53e5,
+        type: 3}
+      propertyPath: _pointA.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984890307787062483, guid: 393188c6d83214179a77b691d3ff53e5,
+        type: 3}
+      propertyPath: _pointB.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 393188c6d83214179a77b691d3ff53e5, type: 3}
