@@ -4,22 +4,39 @@ using UnityEngine;
 
 public class TrackPathStraight : TrackPathBase
 {
-    private Vector2 handle;
-    public Vector3 Handle
-    {
-        get { return transform.position + (Vector3)handle; }
-        set { handle = (Vector2)value - (Vector2)transform.position; }
-    }
-
     public override void ComputeLength()
     {
-        _length = Vector2.Distance(_pointA, _pointB);
+        _length = Vector2.Distance(PointA.position, PointB.position);
+    }
+
+    public override void UpdateLineRenderer() {
+        LineRenderer line = GetComponent<LineRenderer>();
+
+        line.SetPosition(0, PointA.position);
+        line.SetPosition(1, PointB.position);
+    }
+
+    public override void MoveTransform(Transform t, float distance, ref MoveData moveData) {
+        float moveDist = distance / _length;
+        // Debug.Log(moveDist);
+        float total = moveData.lastMove + moveDist;
+        if (total > 1f) {
+            moveDist = 1f;
+            moveData.extra = total - 1f;
+        }
+
+        Vector2 lerpedPos = Vector2.Lerp(PointA.position, PointB.position, total);
+
+        t.position = new Vector3(lerpedPos.x, lerpedPos.y, t.position.z);
+
+        moveData.lastMove += moveDist;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         ComputeLength();
+        UpdateLineRenderer();
     }
 
     // Update is called once per frame

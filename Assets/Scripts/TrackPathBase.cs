@@ -2,22 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct MoveData {
+    public float lastMove;
+    public float extra;
+    public TrackPathBase currentTrack;
+}
+
 public abstract class TrackPathBase : MonoBehaviour
 {
-    public Vector2 _pointA;
-    public Vector2 _pointB;
+    public Transform PointA;
+    public Transform PointB;
     public float _length;
-
-    public Vector3 PointA
-    {
-        get { return transform.position + (Vector3)_pointA; }
-        set { _pointA = (Vector2)value - (Vector2)transform.position; }
-    }
-    public Vector3 PointB
-    {
-        get { return transform.position + (Vector3)_pointB; }
-        set { _pointB = (Vector2)value - (Vector2)transform.position; }
-    }
 
     [HideInInspector]
     public float Length {
@@ -25,4 +20,6 @@ public abstract class TrackPathBase : MonoBehaviour
     }
 
     public abstract void ComputeLength();
+    public abstract void UpdateLineRenderer();
+    public abstract void MoveTransform(Transform t, float distance, ref MoveData moveData);
 }
