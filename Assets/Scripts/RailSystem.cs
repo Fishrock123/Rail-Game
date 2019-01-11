@@ -28,10 +28,18 @@ public class RailSystem : MonoBehaviour
             if (moveData.extra != 0f) {
                 LinkedListNode<TrackPathBase> lln = tracks.Find(track);
                 if (moveData.extra > 0f) {
-                    lln = lln.Next;
+                    if (lln.Next == null) {
+                        lln = tracks.First;
+                    } else {
+                        lln = lln.Next;
+                    }
                     moveData.lastMove = 0f;
                 } else if (moveData.extra < 0f) {
-                    lln = lln.Previous;
+                    if (lln.Previous == null) {
+                        lln = tracks.Last;
+                    } else {
+                        lln = lln.Previous;
+                    }
                     moveData.lastMove = 1f;
                 }
                 if (lln != null) {

@@ -7,14 +7,10 @@ public class TrackPathCurve : TrackPathBase
     // false = left, true = right
     public bool side = true;
     public Transform handle;
-    public Transform slerpPointB;
+    public float degrees = 0f;
 
     [Range(0,50)]
     public int segments = 50;
-    [Range(0,5)]
-    public float xradius = 1;
-    [Range(0,5)]
-    public float yradius = 1;
 
     public override void ComputeLength()
     {
@@ -53,7 +49,7 @@ public class TrackPathCurve : TrackPathBase
 
         float radius = Vector2.Distance(PointA.position, handle.position);
 
-        float angle = Vector2.Angle(handle.localPosition, PointA.localPosition) + (total * 90f) - 90f;
+        float angle = Vector2.Angle(handle.localPosition, PointA.localPosition) + (total * 90f) + 180f + degrees;
 
         float x = Mathf.Sin (Mathf.Deg2Rad * angle) * radius;
         float y = Mathf.Cos (Mathf.Deg2Rad * angle) * radius;
@@ -81,12 +77,14 @@ public class TrackPathCurve : TrackPathBase
         float x;
         float y;
 
-        float angle = Vector2.Angle(handle.localPosition, PointA.localPosition) - 180f;
+        float angle = Vector2.Angle(handle.localPosition, PointA.localPosition) - 180f + degrees;
+
+        float radius = Vector2.Distance(PointA.position, handle.position);
 
         for (int i = 0; i < (segments + 1); i++)
         {
-            x = Mathf.Sin (Mathf.Deg2Rad * angle) * xradius;
-            y = Mathf.Cos (Mathf.Deg2Rad * angle) * yradius;
+            x = Mathf.Sin (Mathf.Deg2Rad * angle) * radius;
+            y = Mathf.Cos (Mathf.Deg2Rad * angle) * radius;
 
             line.SetPosition(i, new Vector3(x, y, 0f) + handle.localPosition);
 
