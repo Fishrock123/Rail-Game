@@ -27,7 +27,6 @@ public class TrackPathCurve : TrackPathBase
         float l2 = Vector2.Distance(PointB.position, handle.position);
 
         _length = (2f * Mathf.PI * ((l1 + l2) / 2)) / 4;
-        Debug.Log(_length);
     }
 
     public override void UpdateLineRenderer() {
@@ -46,6 +45,11 @@ public class TrackPathCurve : TrackPathBase
             moveData.extra = total - 1f;
             total = 1f;
         }
+        if (total < 0f) {
+            moveDist = 0f;
+            moveData.extra = total;
+            total = 0f;
+        }
 
         float radius = Vector2.Distance(PointA.position, handle.position);
 
@@ -57,7 +61,7 @@ public class TrackPathCurve : TrackPathBase
         t.position = handle.position + new Vector3(x, y, t.position.z);
         t.rotation = Quaternion.Euler(0f, 0f, -angle);
 
-        moveData.lastMove += moveDist;
+        moveData.lastMove = Mathf.Clamp(moveData.lastMove + moveDist, 0f, 1f);
     }
 
     // Start is called before the first frame update
@@ -84,7 +88,7 @@ public class TrackPathCurve : TrackPathBase
             x = Mathf.Sin (Mathf.Deg2Rad * angle) * xradius;
             y = Mathf.Cos (Mathf.Deg2Rad * angle) * yradius;
 
-            line.SetPosition (i, new Vector3(x, y, 0f) + handle.localPosition);
+            line.SetPosition(i, new Vector3(x, y, 0f) + handle.localPosition);
 
             angle += (90f / segments);
         }

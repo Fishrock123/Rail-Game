@@ -29,15 +29,16 @@ public class RailSystem : MonoBehaviour
                 LinkedListNode<TrackPathBase> lln = tracks.Find(track);
                 if (moveData.extra > 0f) {
                     lln = lln.Next;
+                    moveData.lastMove = 0f;
                 } else if (moveData.extra < 0f) {
                     lln = lln.Previous;
+                    moveData.lastMove = 1f;
                 }
                 if (lln != null) {
                     track = lln.Value;
                 }
                 moveData.currentTrack = track;
                 distance = moveData.extra;
-                moveData.lastMove = 0f;
                 moveData.extra = 0f;
                 if (lln == null) {
                     break;

@@ -23,13 +23,19 @@ public class TrackPathStraight : TrackPathBase
         if (total > 1f) {
             moveDist = 1f;
             moveData.extra = total - 1f;
+            total = 1f;
+        }
+        if (total < 0f) {
+            moveDist = 0f;
+            moveData.extra = total;
+            total = 0f;
         }
 
         Vector2 lerpedPos = Vector2.Lerp(PointA.position, PointB.position, total);
 
         t.position = new Vector3(lerpedPos.x, lerpedPos.y, t.position.z);
 
-        moveData.lastMove += moveDist;
+        moveData.lastMove = Mathf.Clamp(moveData.lastMove + moveDist, 0f, 1f);
     }
 
     // Start is called before the first frame update
