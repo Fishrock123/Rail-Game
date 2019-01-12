@@ -19,7 +19,7 @@ public abstract class TrackPathBase : MonoBehaviour
         get { return _length; }
     }
 
-    public abstract void ComputeLength();
+    public abstract void ComputeValues();
     public abstract void UpdateLineRenderer();
     public abstract void MoveTransform(Transform t, float distance, ref MoveData moveData);
 }

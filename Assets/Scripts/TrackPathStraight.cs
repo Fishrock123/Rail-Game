@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrackPathStraight : TrackPathBase
 {
-    public override void ComputeLength()
+    public override void ComputeValues()
     {
         _length = Vector2.Distance(PointA.position, PointB.position);
     }
@@ -41,7 +41,7 @@ public class TrackPathStraight : TrackPathBase
     // Start is called before the first frame update
     void Start()
     {
-        ComputeLength();
+        ComputeValues();
         UpdateLineRenderer();
     }
 

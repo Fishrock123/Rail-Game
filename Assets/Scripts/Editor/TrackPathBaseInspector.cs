@@ -35,9 +35,10 @@ public class TrackPathBaseInspector : Editor
         TrackPathBase tp = (TrackPathBase)target;
         EditorGUILayout.LabelField("Length", tp.Length.ToString());
 
-        if (GUILayout.Button("Compute Length"))
+        if (GUILayout.Button("Compute Values"))
         {
-            tp.ComputeLength();
+            tp.ComputeValues();
+            tp.UpdateLineRenderer();
         }
         if (GUILayout.Button("Update LineRenderer"))
         {

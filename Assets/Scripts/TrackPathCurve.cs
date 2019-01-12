@@ -8,21 +8,22 @@ public class TrackPathCurve : TrackPathBase
     public float side = 1f;
     public Transform handle;
     public float degrees = 0f;
+    public float radius = 1f;
 
     [Range(0,50)]
     public int segments = 50;
 
-    public override void ComputeLength()
+    public override void ComputeValues()
     {
-        // float cLength = Vector2.Distance(PointA.position, PointB.position);
-        // float abLength = Mathf.Sqrt(Mathf.Pow(cLength, 2) / 2);
-
-        // Quaternion.AngleAxis(side ? 45f : -45f, Vector3.forward);
+        Vector2 dirA = PointA.position - handle.position;
+        degrees = Atan2_360(dirA);
 
         float l1 = Vector2.Distance(PointA.position, handle.position);
         float l2 = Vector2.Distance(PointB.position, handle.position);
 
-        _length = (2f * Mathf.PI * ((l1 + l2) / 2)) / 4;
+        radius = (l1 + l2) / 2;
+
+        _length = (2f * Mathf.PI * radius) / 4;
     }
 
     public override void UpdateLineRenderer() {
@@ -47,8 +48,6 @@ public class TrackPathCurve : TrackPathBase
             total = 0f;
         }
 
-        float radius = Vector2.Distance(PointA.position, handle.position);
-
         float angle = (total * 90f * side) + degrees;
 
         float x = Mathf.Cos (Mathf.Deg2Rad * angle) * radius;
@@ -63,7 +62,7 @@ public class TrackPathCurve : TrackPathBase
     // Start is called before the first frame update
     void Start()
     {
-        ComputeLength();
+        ComputeValues();
         UpdateLineRenderer();
         CreatePoints();
     }
@@ -78,8 +77,6 @@ public class TrackPathCurve : TrackPathBase
 
         float angle = degrees;
 
-        float radius = Vector2.Distance(PointA.position, handle.position);
-
         for (int i = 0; i < (segments + 1); i++)
         {
             x = Mathf.Cos (Mathf.Deg2Rad * angle) * radius;
@@ -87,7 +84,7 @@ public class TrackPathCurve : TrackPathBase
 
             line.SetPosition(i, new Vector3(x, y, 0f) + handle.position);
 
-            angle += ((90f * side) / segments);
+            angle += (90f * side) / segments;
         }
     }
 
@@ -95,5 +92,10 @@ public class TrackPathCurve : TrackPathBase
     void Update()
     {
 
+    }
+
+    float Atan2_360(Vector2 v) {
+        float angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        return angle > 0 ? angle : 180 + (180 + angle);
     }
 }
