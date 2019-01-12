@@ -18,7 +18,6 @@ public class TrackPathStraight : TrackPathBase
 
     public override void MoveTransform(Transform t, float distance, ref MoveData moveData) {
         float moveDist = distance / _length;
-        // Debug.Log(moveDist);
         float total = moveData.lastMove + moveDist;
         if (total > 1f) {
             moveDist = 1f;

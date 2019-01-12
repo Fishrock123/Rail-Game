@@ -25,6 +25,5 @@ public class TrainBehavior : MonoBehaviour
         _speed = Mathf.Clamp(_speed + ((accel * Time.deltaTime) * Input.GetAxisRaw("Vertical")), -maxSpeed, maxSpeed);
 
         rail.UpdateTrain(transform, _speed * Time.deltaTime, ref moveData);
-        // Debug.Log(moveData.lastMove);
     }
 }

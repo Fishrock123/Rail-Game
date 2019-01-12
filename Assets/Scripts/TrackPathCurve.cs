@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TrackPathCurve : TrackPathBase
 {
-    // false = left, true = right
     public float side = 1f;
     public Transform handle;
     public float degrees = 0f;
@@ -32,7 +31,6 @@ public class TrackPathCurve : TrackPathBase
 
     public override void MoveTransform(Transform t, float distance, ref MoveData moveData) {
         float moveDist = distance / _length;
-        // Debug.Log(moveDist);
         float total = moveData.lastMove + moveDist;
         if (total > 1f) {
             moveDist = 1f;
