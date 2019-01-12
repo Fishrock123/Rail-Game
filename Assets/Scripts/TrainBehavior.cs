@@ -28,9 +28,17 @@ public class TrainBehavior : MonoBehaviour
             return;
         }
 
-        _speed = Mathf.Clamp(_speed + ((accel * Time.deltaTime) * Input.GetAxisRaw("Vertical")), -maxSpeed, maxSpeed);
+        if (Input.GetButton(playerData.controlAccelerate)) {
+            moveData.speed += (accel * Time.deltaTime);
+        }
+        if (Input.GetButton(playerData.controlDecelerate)) {
+            moveData.speed -= (accel * Time.deltaTime);
+        }
+        moveData.speed = Mathf.Clamp(moveData.speed, -maxSpeed, maxSpeed);
 
-        rail.UpdateTrain(transform, _speed * Time.deltaTime, ref moveData);
+        rail.UpdateTrain(transform, moveData.speed * Time.deltaTime, ref moveData);
+
+        _speed = moveData.speed;
     }
 
     public void SetPlayer(PlayerData pData) {

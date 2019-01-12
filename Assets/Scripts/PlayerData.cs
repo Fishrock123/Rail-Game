@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerData
 {
-    Color color;
+    public Color color;
 
-    string controlAccelerate;
-    string controlDecelerate;
+    public string controlAccelerate = "Up";
+    public string controlDecelerate = "Down";
 }

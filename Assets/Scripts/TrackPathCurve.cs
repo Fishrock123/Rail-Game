@@ -8,6 +8,7 @@ public class TrackPathCurve : TrackPathBase
     public Transform handle;
     public float degrees = 0f;
     public float radius = 1f;
+    public float decelerationMod = 2f;
 
     [Range(0,50)]
     public int segments = 50;
@@ -52,6 +53,9 @@ public class TrackPathCurve : TrackPathBase
         t.rotation = Quaternion.Euler(0f, 0f, angle);
 
         moveData.lastMove = Mathf.Clamp(moveData.lastMove + moveDist, 0f, 1f);
+
+        // reduce speed
+        moveData.speed -= (decelerationMod * (distance / radius)) / radius;
     }
 
     // Start is called before the first frame update
