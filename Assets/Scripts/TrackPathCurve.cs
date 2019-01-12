@@ -27,10 +27,7 @@ public class TrackPathCurve : TrackPathBase
     }
 
     public override void UpdateLineRenderer() {
-        LineRenderer line = GetComponent<LineRenderer>();
-
-        line.SetPosition(0, PointA.position);
-        line.SetPosition(1, PointB.position);
+        CreatePoints();
     }
 
     public override void MoveTransform(Transform t, float distance, ref MoveData moveData) {
