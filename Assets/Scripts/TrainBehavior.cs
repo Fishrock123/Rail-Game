@@ -11,6 +11,8 @@ public class TrainBehavior : MonoBehaviour
     public MoveData moveData = new MoveData();
     public RailSystem rail;
 
+    public PlayerData playerData;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +24,16 @@ public class TrainBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!rail) {
+            return;
+        }
+
         _speed = Mathf.Clamp(_speed + ((accel * Time.deltaTime) * Input.GetAxisRaw("Vertical")), -maxSpeed, maxSpeed);
 
         rail.UpdateTrain(transform, _speed * Time.deltaTime, ref moveData);
+    }
+
+    public void SetPlayer(PlayerData pData) {
+        playerData = pData;
     }
 }

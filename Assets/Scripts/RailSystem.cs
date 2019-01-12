@@ -8,6 +8,10 @@ public class RailSystem : MonoBehaviour
     public LinkedList<TrackPathBase> tracks;
 
     void Awake() {
+        foreach (TrackPathBase tp in _tracks) {
+            tp.rails = this;
+        }
+
         tracks = new LinkedList<TrackPathBase>(_tracks);
     }
 

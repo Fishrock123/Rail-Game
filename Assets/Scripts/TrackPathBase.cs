@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct MoveData {
-    public float lastMove;
-    public float extra;
-    public TrackPathBase currentTrack;
-}
-
 public abstract class TrackPathBase : MonoBehaviour
 {
     public Transform PointA;
     public Transform PointB;
     public float _length;
+
+    public RailSystem rails;
 
     [HideInInspector]
     public float Length {
