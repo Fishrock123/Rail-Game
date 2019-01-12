@@ -5,7 +5,7 @@ using UnityEngine;
 public class TrackPathCurve : TrackPathBase
 {
     // false = left, true = right
-    public bool side = true;
+    public float side = 1f;
     public Transform handle;
     public float degrees = 0f;
 
@@ -49,13 +49,13 @@ public class TrackPathCurve : TrackPathBase
 
         float radius = Vector2.Distance(PointA.position, handle.position);
 
-        float angle = Vector2.Angle(handle.localPosition, PointA.localPosition) + (total * 90f) + 180f + degrees;
+        float angle = (total * 90f * side) + degrees;
 
-        float x = Mathf.Sin (Mathf.Deg2Rad * angle) * radius;
-        float y = Mathf.Cos (Mathf.Deg2Rad * angle) * radius;
+        float x = Mathf.Cos (Mathf.Deg2Rad * angle) * radius;
+        float y = Mathf.Sin (Mathf.Deg2Rad * angle) * radius;
 
         t.position = handle.position + new Vector3(x, y, t.position.z);
-        t.rotation = Quaternion.Euler(0f, 0f, -angle);
+        t.rotation = Quaternion.Euler(0f, 0f, angle);
 
         moveData.lastMove = Mathf.Clamp(moveData.lastMove + moveDist, 0f, 1f);
     }
@@ -72,23 +72,22 @@ public class TrackPathCurve : TrackPathBase
     {
         LineRenderer line = GetComponent<LineRenderer>();
         line.positionCount = segments + 1;
-        line.useWorldSpace = false;
 
         float x;
         float y;
 
-        float angle = Vector2.Angle(handle.localPosition, PointA.localPosition) - 180f + degrees;
+        float angle = degrees;
 
         float radius = Vector2.Distance(PointA.position, handle.position);
 
         for (int i = 0; i < (segments + 1); i++)
         {
-            x = Mathf.Sin (Mathf.Deg2Rad * angle) * radius;
-            y = Mathf.Cos (Mathf.Deg2Rad * angle) * radius;
+            x = Mathf.Cos (Mathf.Deg2Rad * angle) * radius;
+            y = Mathf.Sin (Mathf.Deg2Rad * angle) * radius;
 
-            line.SetPosition(i, new Vector3(x, y, 0f) + handle.localPosition);
+            line.SetPosition(i, new Vector3(x, y, 0f) + handle.position);
 
-            angle += (90f / segments);
+            angle += ((90f * side) / segments);
         }
     }
 
