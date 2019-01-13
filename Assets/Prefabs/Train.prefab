@@ -124,4 +124,10 @@ MonoBehaviour:
   accel: 3
   _speed: 0
   maxSpeed: 8
+  heat: 0
+  maxHeat: 300
+  heatGain: 10
   rail: {fileID: 0}
+  heatColor: {r: 1, g: 0, b: 0.07898474, a: 0}
+  destroyedColor: {r: 0, g: 0, b: 0, a: 0}
+  _renderer: {fileID: 9008319086718282644}

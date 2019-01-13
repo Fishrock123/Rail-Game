@@ -8,4 +8,8 @@ public class PlayerData
 
     public string controlAccelerate = "Up";
     public string controlDecelerate = "Down";
+
+    public PlayerData (Color playerColor) {
+        color = playerColor;
+    }
 }

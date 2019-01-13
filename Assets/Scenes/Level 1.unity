@@ -3360,6 +3360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   railSystems:
   - {fileID: 550109850328152181}
+  playerMaterial: {fileID: 2100000, guid: 0b4e9909de8654496a38924b9b6dbcc9, type: 2}
 --- !u!114 &1083429709 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 485375487406112837, guid: 0283cf0464bd445a9a8d324e652459c3,
