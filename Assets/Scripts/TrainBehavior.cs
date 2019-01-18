@@ -65,6 +65,8 @@ public class TrainBehavior : MonoBehaviour
         _speed = moveData.speed;
 
         material.SetColor("_EmissionColor", Color.Lerp(playerData.color, heatColor, heatMod));
+
+        playerData.playerUI.UpdateUI(this);
     }
 
     public void SetPlayer(PlayerData pData) {
