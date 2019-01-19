@@ -23,7 +23,7 @@ public class PlayerUI : MonoBehaviour
     {
         if (train) {
             heatText.text = train.heat.ToString("F1") + heatSuffix;
-            speedText.text = train.moveData.speed.ToString("F1") + speedSuffix;
+            speedText.text = train.speed.ToString("F1") + speedSuffix;
             fuelText.text = train.fuel.ToString("F1") + fuelSuffix;
         } else {
             heatText.text = "20" + heatSuffix;

@@ -55,7 +55,7 @@ public class TrackPathCurve : TrackPathBase
         moveData.lastMove = Mathf.Clamp(moveData.lastMove + moveDist, 0f, 1f);
 
         // reduce speed
-        moveData.speed -= (decelerationMod * (distance / radius)) / radius;
+        moveData.train.speed -= (decelerationMod * (distance / radius)) / radius;
     }
 
     // Start is called before the first frame update

@@ -5,7 +5,7 @@ using UnityEngine;
 public class TrainBehavior : MonoBehaviour
 {
     public float accel = 0.2f;
-    public float _speed = 0f;
+    public float speed = 0f;
     public float maxSpeed = 1f;
     public float heat = 0f;
     public float maxHeat = 100f;
@@ -30,6 +30,7 @@ public class TrainBehavior : MonoBehaviour
         moveData.lastMove = 0f;
         moveData.extra = 0f;
         moveData.currentTrack = rail.tracks.First.Value;
+        moveData.train = this;
 
         material = _renderer.material;
         material.SetColor("_EmissionColor", playerData.color);
@@ -54,19 +55,17 @@ public class TrainBehavior : MonoBehaviour
 
         if (Input.GetButton(playerData.controlAccelerate)) {
             heat -= 2f * Time.deltaTime;
-            moveData.speed += (accel * heatMod * Time.deltaTime);
+            speed += (accel * heatMod * Time.deltaTime);
         }
         if (Input.GetButton(playerData.controlDecelerate)) {
-            if (moveData.speed > Mathf.Epsilon) {
+            if (speed > Mathf.Epsilon) {
                 heat += heatGain * Time.deltaTime;
             }
-            moveData.speed -= (accel * Time.deltaTime);
+            speed -= (accel * Time.deltaTime);
         }
-        moveData.speed = Mathf.Clamp(moveData.speed, 0, maxSpeed);
+        speed = Mathf.Clamp(speed, 0, maxSpeed);
 
-        rail.UpdateTrain(transform, moveData.speed * Time.deltaTime, ref moveData);
-
-        _speed = moveData.speed;
+        rail.UpdateTrain(transform, speed * Time.deltaTime, ref moveData);
 
         material.SetColor("_EmissionColor", Color.Lerp(playerData.color, heatColor, heatMod));
 
