@@ -9,7 +9,9 @@ public class TrainBehavior : MonoBehaviour
     public float maxSpeed = 1f;
     public float heat = 0f;
     public float maxHeat = 100f;
-    public float heatGain = 10f;
+    public float heatGain = 30f;
+    public float fuel = 100f;
+    public float fuelCost = .5f;
 
     public MoveData moveData = new MoveData();
     public RailSystem rail;
@@ -41,9 +43,11 @@ public class TrainBehavior : MonoBehaviour
         }
         heat -= 1f * Time.deltaTime;
 
-        if (Input.GetButton("Jump")) {
+        if (Input.GetButton("Jump") && fuel > 0f) {
             heat += heatGain * Time.deltaTime;
+            fuel -= fuelCost * Time.deltaTime;
         }
+        fuel = Mathf.Clamp(fuel, 0, 1000f);
         heat = Mathf.Clamp(heat, 0, maxHeat);
         float heatMod = heat / maxHeat;
         Debug.Log(heatMod);
