@@ -6,12 +6,16 @@ public class TrainBehavior : MonoBehaviour
 {
     public float accel = 0.2f;
     public float speed = 0f;
-    public float maxSpeed = 1f;
+    public float maxSpeed = 20f;
     public float heat = 0f;
-    public float maxHeat = 100f;
-    public float heatGain = 30f;
+    public float maxHeat = 300f;
+    public float heatGain = 10f;
     public float fuel = 100f;
     public float fuelCost = .5f;
+    public float airResistance = .01f;
+
+    public float ventHeatDuration = 3f;
+    private float ventingHeat;
 
     public MoveData moveData = new MoveData();
     public RailSystem rail;
@@ -42,19 +46,40 @@ public class TrainBehavior : MonoBehaviour
         if (!rail) {
             return;
         }
-        heat -= 1f * Time.deltaTime;
+        heat -= 2f * Time.deltaTime;
+        if (speed > 0) {
+            heat -= speed * airResistance * Mathf.Pow(speed, 3f) * Time.deltaTime;
+            speed -= airResistance * Mathf.Pow(speed, 3f) * Time.deltaTime;
+        }
+        // Debug.Log(heat);
+        // Debug.Log(speed);
 
-        if (Input.GetButton("Jump") && fuel > 0f) {
+        if (Input.GetButton(playerData.controlBurn) && fuel > 0f) {
             heat += heatGain * Time.deltaTime;
             fuel -= fuelCost * Time.deltaTime;
         }
+        if (Input.GetButtonDown(playerData.controlVent) && heat > 250) {
+            ventingHeat = ventHeatDuration;
+        }
+        if (ventingHeat > 0f) {
+            ventingHeat -= Time.deltaTime;
+            heat -= 50f * Time.deltaTime;
+        }
+        ventingHeat = Mathf.Clamp(ventingHeat, 0f, ventHeatDuration);
+
         fuel = Mathf.Clamp(fuel, 0, 1000f);
-        heat = Mathf.Clamp(heat, 0, maxHeat);
-        float heatMod = heat / maxHeat;
-        Debug.Log(heatMod);
+        heat = Mathf.Clamp(heat, 0, 1000f);
+        float heatMod = (heat / maxHeat);
+        // Magic curve that looks like what I want, 0-1
+        // https://www.desmos.com/calculator/tgsp0ay1yc
+        // float heatMod = (2.6f * Mathf.Sqrt(heatPercent)) + (-1.8f * heatPercent);
+        if (heat > maxHeat) {
+            heatMod -= (heat - maxHeat) / maxHeat;
+            heat -= 10f * Time.deltaTime;
+        }
 
         if (Input.GetButton(playerData.controlAccelerate)) {
-            heat -= 2f * Time.deltaTime;
+            heat -= 3f * Time.deltaTime;
             speed += (accel * heatMod * Time.deltaTime);
         }
         if (Input.GetButton(playerData.controlDecelerate)) {

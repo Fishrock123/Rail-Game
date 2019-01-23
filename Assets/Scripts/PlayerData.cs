@@ -8,6 +8,8 @@ public class PlayerData
 
     public string controlAccelerate = "Up";
     public string controlDecelerate = "Down";
+    public string controlBurn = "Burn";
+    public string controlVent = "Vent";
 
     public GameObject playerUIObject;
     public PlayerUI playerUI;

@@ -8,7 +8,8 @@ public class TrackPathCurve : TrackPathBase
     public Transform handle;
     public float degrees = 0f;
     public float radius = 1f;
-    public float decelerationMod = 2f;
+    public float decelerationMod = 0.0005f;
+    public float heatMod = 2f;
 
     [Range(0,50)]
     public int segments = 50;
@@ -55,7 +56,9 @@ public class TrackPathCurve : TrackPathBase
         moveData.lastMove = Mathf.Clamp(moveData.lastMove + moveDist, 0f, 1f);
 
         // reduce speed
-        moveData.train.speed -= (decelerationMod * (distance / radius)) / radius;
+        moveData.train.speed -= (1.1f + (decelerationMod * moveData.train.speed)) * Mathf.Pow(radius, -1) * Time.deltaTime;
+        // increase heat
+        moveData.train.heat += (1.1f + (heatMod * moveData.train.speed)) * Mathf.Pow(radius, -1) * Time.deltaTime;
     }
 
     // Start is called before the first frame update

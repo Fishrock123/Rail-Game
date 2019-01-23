@@ -121,12 +121,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 990ba095874a74e3b9fd8047003b5c67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accel: 3
-  _speed: 0
-  maxSpeed: 8
+  accel: 4.2
+  speed: 0
+  maxSpeed: 20
   heat: 0
   maxHeat: 300
-  heatGain: 10
+  heatGain: 20
+  fuel: 100
+  fuelCost: 0.8
+  airResistance: 0.003
+  ventHeatDuration: 3
   rail: {fileID: 0}
   heatColor: {r: 1, g: 0, b: 0.07898474, a: 0}
   destroyedColor: {r: 0, g: 0, b: 0, a: 0}
