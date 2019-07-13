@@ -48,7 +48,7 @@ public class TrainBehavior : MonoBehaviour
         }
         heat -= 2f * Time.deltaTime;
         if (speed > 0) {
-            heat -= speed * airResistance * Mathf.Pow(speed, 3f) * Time.deltaTime;
+            heat -= speed * airResistance * Mathf.Pow(speed, 2f) * Time.deltaTime;
             speed -= airResistance * Mathf.Pow(speed, 3f) * Time.deltaTime;
         }
         // Debug.Log(heat);

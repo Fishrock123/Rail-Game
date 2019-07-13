@@ -50,11 +50,14 @@ MonoBehaviour:
   PointA: {fileID: 7857954430006487232}
   PointB: {fileID: 3908063416994757205}
   _length: 0
+  rails: {fileID: 0}
   side: 1
   handle: {fileID: 2363712861394737135}
+  degrees: 0
+  radius: 1
+  decelerationMod: 0.001
+  heatMod: 5
   segments: 50
-  xradius: 5
-  yradius: 5
 --- !u!120 &6978969527889276280
 LineRenderer:
   m_ObjectHideFlags: 0

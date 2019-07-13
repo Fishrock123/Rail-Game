@@ -58,7 +58,7 @@ public class TrackPathCurve : TrackPathBase
         // reduce speed
         moveData.train.speed -= (1.1f + (decelerationMod * moveData.train.speed)) * Mathf.Pow(radius, -1) * Time.deltaTime;
         // increase heat
-        moveData.train.heat += (1.1f + (heatMod * moveData.train.speed)) * Mathf.Pow(radius, -1) * Time.deltaTime;
+        moveData.train.heat += (1.5f + (heatMod * moveData.train.speed)) * Mathf.Pow(radius, -1) * Time.deltaTime;
     }
 
     // Start is called before the first frame update
